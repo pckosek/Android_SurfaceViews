@@ -1,6 +1,8 @@
-package com.pckosek.a04_surfaceviews;
+package com.example.a05_surfaceviews;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -23,9 +25,10 @@ public class MyCustomView extends SurfaceView {
 
     private int mYPos = 0;
 
-    private double mFramesPerSecond = 2;
+    private double mFramesPerSecond = 25;
     private double mMillisecondsPerFrame = 1000 / mFramesPerSecond;
 
+    private Sprite mSprite;
 
 
     /* ------------------------*/
@@ -36,11 +39,22 @@ public class MyCustomView extends SurfaceView {
 
         setupPaint();
 
+        // create a new sprite
+        Bitmap b = BitmapFactory.decodeResource(getResources(),R.drawable.sprite);
+        mSprite = new Sprite(this,b);
+
+        // create and bind the listener
         mHolder = getHolder();
         mSurfaceHolderListener = new SurfaceHolderListener();
-
         mHolder.addCallback(mSurfaceHolderListener);
+    }
 
+    // onLayout is a SurfaceView lifecycle method
+    //   that corresponds to when dimensions are available
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+        mSprite.generateDimensions();
     }
 
     public void setupPaint() {
@@ -54,14 +68,15 @@ public class MyCustomView extends SurfaceView {
 
         Canvas c;
         float h;
+        private Thread mThread;
 
         @Override
         public void surfaceCreated(SurfaceHolder holder) {
 
             // this is called when the surface is created
 
-            Thread t = new Thread(this);
-            t.start();
+            mThread = new Thread(this);
+            mThread.start();
 
             h = getHeight();
         }
@@ -89,12 +104,8 @@ public class MyCustomView extends SurfaceView {
                 // Begin inner draw mechanics
                 lockAndDraw();
 
-                mYPos += 20;
-                mYPos %= h;
-                // End inner draw mechanics
-
-               loop_finish_time = System.currentTimeMillis();
-               loop_time = loop_finish_time - loop_entry_time;
+                loop_finish_time = System.currentTimeMillis();
+                loop_time = loop_finish_time - loop_entry_time;
 
                 if (loop_time <= mMillisecondsPerFrame ) {
                     try {
@@ -109,8 +120,14 @@ public class MyCustomView extends SurfaceView {
 
         public void lockAndDraw() {
             c = mHolder.getSurface().lockHardwareCanvas();
+
+            // clear the existing canvas
             c.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
-            c.drawCircle(250, mYPos, 50, mPaint);
+
+            // draw the sprite
+            mSprite.drawCanvas(c);
+
+            // lock the canvas
             mHolder.getSurface().unlockCanvasAndPost(c);
         }
     }
