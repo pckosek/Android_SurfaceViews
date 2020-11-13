@@ -19,14 +19,14 @@ public class Sprite {
     private int y_pos;
 
     public Sprite(MyCustomView mcv, Bitmap b) {
-        this.mBitmap = b;
-        this.mmyCustomView = mcv;
+        mBitmap = b;
+        mmyCustomView = mcv;
     }
 
     public void generateDimensions() {
         // must be called when mmyCustomView has actual dimensions
-        this.mWidth = mmyCustomView.getWidth();
-        this.mHeight = mmyCustomView.getHeight();
+        mWidth = mmyCustomView.getWidth();
+        mHeight = mmyCustomView.getHeight();
 
         dx = 1;      // arbitrary choice
         dy = 20;     // arbitrary choice
@@ -45,7 +45,7 @@ public class Sprite {
 
     }
 
-    public void drawCanvas(Canvas c) {
+    public void drawSpriteOnCanvas(Canvas c) {
         tic();
         c.drawBitmap(mBitmap, x_pos, y_pos, null);
     }

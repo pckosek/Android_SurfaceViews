@@ -125,7 +125,7 @@ public class MyCustomView extends SurfaceView {
             c.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
 
             // draw the sprite
-            mSprite.drawCanvas(c);
+            mSprite.drawSpriteOnCanvas(c);
 
             // lock the canvas
             mHolder.getSurface().unlockCanvasAndPost(c);
