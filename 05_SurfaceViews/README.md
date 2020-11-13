@@ -1,4 +1,4 @@
-# A Bare Bones Hello World of SurfaceView
+# A SurfaceView with a minimally functional Sprite class
 
 ## No lecture yes :(
 
