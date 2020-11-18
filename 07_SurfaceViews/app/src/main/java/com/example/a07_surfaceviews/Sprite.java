@@ -43,10 +43,15 @@ public class Sprite {
         setDestinationPositionMetrics(mmyCustomView,coinDisplayXPostion,coinDisplayYPosition,coinXSpeed,coinYSpeed, coinDisplayWidth, coinDisplayHeight);
     }
 
-    void setSourceAnimationMetrics(int tnr, int tnc, int nar, int nac, int aro, int aco){
-
+    void setSourceAnimationMetrics(int totalTemplateRows, int totalTemplateColumns, int numAnimRows, int numAnimCols, int animRowOffset, int animColOffset){
         mSourceAnimationMetrics = new SourceAnimationMetrics(
-                mBitmap,tnr,tnc,nar,nac,aro,aco);
+                mBitmap,
+                totalTemplateRows,
+                totalTemplateColumns,
+                numAnimRows,
+                numAnimCols,
+                animRowOffset,
+                animColOffset);
     }
 
     public void setDestinationPositionMetrics(MyCustomView m, int x, int y, int dx, int dy, int disp_width, int disp_height){
