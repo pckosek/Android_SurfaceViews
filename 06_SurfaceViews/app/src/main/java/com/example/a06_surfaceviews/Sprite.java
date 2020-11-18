@@ -25,14 +25,21 @@ public class Sprite {
         int marioPngTotalCols = 36;
         int coinImageRows = 1;
         int coinImageColumns = 4;
-        int coinImageRowOffset = 5;
+        int coinImageRowOffset = 3;
         int coinImageColOffset = 0;
 
         setSourceAnimationMetrics(marioPngTotalRows,marioPngTotalCols,coinImageRows,coinImageColumns,coinImageRowOffset,coinImageColOffset);
 
+        int coinDisplayXPostion  = 250; //px
+        int coinDisplayYPosition = 250; //px
+
+        int coinXSpeed = 10;
+        int coinYSpeed = 0;
+
         int coinDisplayWidth  = 350; //px
         int coinDisplayHeight = 350; //px
-        setDestinationPositionMetrics(mmyCustomView,250,250,0,0, coinDisplayWidth, coinDisplayHeight);
+
+        setDestinationPositionMetrics(mmyCustomView,coinDisplayXPostion,coinDisplayYPosition,coinXSpeed,coinYSpeed, coinDisplayWidth, coinDisplayHeight);
     }
 
     void setSourceAnimationMetrics(int tnr, int tnc, int nar, int nac, int aro, int aco){
